@@ -28,29 +28,35 @@ One makes use of git + puppet and the other rsync + puppet.
 rsync + puppet is great for testing changes to the puppet manifests  
 before commiting them to git and deploying to production.  
 
+## Example Production Workflow
+
+### Prep
+
+    git clone https://bitbucket.org/aussielunix/lamp-appliance.git
+    ssh-copy-id -i ~/.ssh/lunix_dsa.pub root@cloud-server-01.example.com.au
+    cd lamp-appliance
+
+### Build
+
+    cap puppet:prep HOST="cloud-server-01.example.com.au" #git clone + install puppet etc
+    cap puppet:go HOST="cloud-server-01.example.com.au"
+
+
 ## Example Development Workflow
+
+### Prep
 
     git clone https://bitbucket.org/aussielunix/lamp-appliance.git  
     ssh-copy-id -i ~/.ssh/lunix_dsa.pub root@dev-vm.local
     cd lamp-appliance
+
+### Build + hack + test + build
     cap puppet:prepd HOST="dev-vm.local" (HOST is optional and overrides the default HOST)  
     cap puppet:go HOST="dev-vm.local" OPTIONS="--noop"  
     <hack hack hack>
     cap puppet:upd HOST="dev-vm.local" #rsyncs changes to VM
     cap puppet:go HOST="dev-vm.local"  
     git commit
-
-## Example Production Workflow
-
-    git clone https://bitbucket.org/aussielunix/lamp-appliance.git
-    ssh-copy-id -i ~/.ssh/lunix_dsa.pub root@example.com.au
-    cd lamp-appliance
-    cap puppet:prep HOST="example.com.au" #git clone + install puppet etc
-    cap puppet:go HOST="example.com.au" OPTIONS="--noop"
-    cap puppet:go HOST="example.com.au"
-    <merge in changes from dev>
-    cap puppet:up HOST="example.com.au" # pulls down changes from git
-    cap puppet:go HOST="example.com.au"
 
 ## TODO
 
