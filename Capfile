@@ -30,10 +30,11 @@ namespace :puppet do
       lines = ['deb http://apt.puppetlabs.com/ubuntu lucid main',
           'deb-src http://apt.puppetlabs.com/ubuntu lucid main',
           '']
-      put lines.join('\n'), '/tmp/puppetlabs.list.new'
+      put lines.join("\n"), '/tmp/puppetlabs.list.new'
       run 'mv /tmp/puppetlabs.list.new /etc/apt/sources.list.d/puppetlabs.list'
       run 'apt-key adv --keyserver keyserver.ubuntu.com --recv 4BD6EC30'
-      run 'apt-get update'run 'apt-get install -y puppet git-core'
+      run 'apt-get update'
+      run 'apt-get install -y puppet git-core'
       run 'git clone https://bitbucket.org/aussielunix/graylog2-appliance.git /opt/build'
   end
 
