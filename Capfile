@@ -35,7 +35,7 @@ namespace :puppet do
       run 'apt-key adv --keyserver keyserver.ubuntu.com --recv 4BD6EC30'
       run 'apt-get update'
       run 'apt-get install -y puppet git-core'
-      run 'git clone https://bitbucket.org/aussielunix/graylog2-appliance.git /opt/build'
+      run 'git clone https://bitbucket.org/aussielunix/lamp2-appliance.git /opt/build'
   end
 
   desc 'update puppet repos on dev server - rsync'
